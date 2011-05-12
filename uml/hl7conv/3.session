@@ -1,0 +1,13 @@
+window_sizes 1280 969 300 974 755 136
+diagrams
+  active  classdiagram_ref 128003 // hl7types
+    974 755 100 4 0 0
+end
+show_stereotypes
+selected operation_ref 128643 // next
+open
+  class_ref 128003 // Base
+  class_ref 128259 // Complex
+  class_ref 128387 // ContainerBase
+end
+end
