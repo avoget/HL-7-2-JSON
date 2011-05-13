@@ -30,7 +30,7 @@ classcanvas 130178 class_ref 128515 // EmptyContainer
 end
 relationcanvas 128258 relation_ref 134530 // <directional aggregation>
   from ref 128002 z 2001 to ref 128130
-  role_a_pos 118 82 3000 no_role_b
+  role_a_pos 126 87 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 129282 relation_ref 141186 // <generalisation>
