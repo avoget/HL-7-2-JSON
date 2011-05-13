@@ -1,6 +1,6 @@
 format 76
 "Types" // Types
-  revision 2
+  revision 6
   modified_by 2 "fav"
   // class settings
   //class diagram settings
@@ -48,7 +48,7 @@ format 76
       size A4
     end
 
-    class 128003 "Base"
+    class 128003 "BaseType"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -60,7 +60,7 @@ ${inlines}
       idl_decl ""
       explicit_switch_type ""
       
-      operation 128003 "name"
+      operation 128003 "typeId"
 	public explicit_return_type "string"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -95,9 +95,23 @@ ${inlines}
 	
 	
       end
+
+      operation 141058 "name"
+	public explicit_return_type "string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
     end
 
-    class 128131 "Simple"
+    class 128131 "SimpleType"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -114,11 +128,19 @@ ${inlines}
 	  a public
 	    cpp default "${type}"
 	    classrelation_ref 128003 // <generalisation>
-	  b parent class_ref 128003 // Base
+	  b parent class_ref 128003 // BaseType
+      end
+
+      classrelation 148482 // <dependency>
+	relation 148226 -_->
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 148482 // <dependency>
+	  b parent class_ref 128515 // EmptyContainer
       end
     end
 
-    class 128259 "Complex"
+    class 128259 "ComplexType"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -135,33 +157,24 @@ ${inlines}
 	  a public
 	    cpp default "${type}"
 	    classrelation_ref 128131 // <generalisation>
-	  b parent class_ref 128003 // Base
+	  b parent class_ref 128003 // BaseType
       end
 
-      classrelation 128515 // <composition>
-	relation 128387 *---
-	  a role_name "" private
+      classrelation 148226 // _children (<directional composition>)
+	relation 148098 *-->
+	  a role_name "_children" private
 	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
 "
-	    classrelation_ref 128515 // <composition>
-	  b role_name "" private
-	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 128643 // <composition>
-      end
-
-      classrelation 129155 // <directional composition>
-	relation 128899 *-->
-	  a role_name "" private
-	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 129155 // <directional composition>
+	    classrelation_ref 148226 // _children (<directional composition>)
 	  b parent class_ref 128643 // Container
       end
     end
 
     class 128387 "ContainerBase"
       visibility package 
+      nformals 1
+      formal name "T" type "class" explicit_default_value ""
+        explicit_extends ""
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
 ${inlines}
@@ -172,10 +185,6 @@ ${inlines}
       idl_decl ""
       explicit_switch_type ""
       
-      classrelation 128643 // <composition>
-	relation_ref 128387 // <composition>
-      end
-
       operation 128259 "isEmpty"
 	public explicit_return_type "bool"
 	nparams 0
@@ -193,7 +202,7 @@ ${inlines}
       operation 128387 "add"
 	public explicit_return_type "void"
 	nparams 1
-	  param in name "type" type class_ref 128003 // Base
+	  param in name "type" type class_ref 128003 // BaseType
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -205,16 +214,8 @@ ${inlines}
 	
       end
 
-      classrelation 129283 // <dependency>
-	relation 129027 -_->
-	  a default
-	    cpp default "#include in source"
-	    classrelation_ref 129283 // <dependency>
-	  b parent class_ref 128771 // BasePtr
-      end
-
       operation 128515 "first"
-	public return_type class_ref 128771 // BasePtr
+	public explicit_return_type "BasePtr"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
@@ -228,7 +229,7 @@ ${inlines}
       end
 
       operation 128643 "next"
-	public return_type class_ref 128771 // BasePtr
+	public explicit_return_type "BasePtr"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
@@ -254,10 +255,26 @@ ${inlines}
 	
 	
       end
+
+      class 154498 "BasePtr"
+	visibility package stereotype "typedef" base_type class_ref 128003 // BaseType
+	cpp_decl "${comment}typedef shared<${type}> ${name};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl "${comment}typedef ${type} ${name};
+"
+	explicit_switch_type ""
+	
+      end
     end
 
     class 128515 "EmptyContainer"
       visibility package 
+      nactuals 1
+      actual class class_ref 128387 // ContainerBase
+        rank 0 explicit_value ""
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
 ${inlines}
@@ -279,6 +296,9 @@ ${inlines}
 
     class 128643 "Container"
       visibility package 
+      nactuals 1
+      actual class class_ref 128387 // ContainerBase
+        rank 0 explicit_value ""
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
 ${inlines}
@@ -298,23 +318,236 @@ ${inlines}
       end
     end
 
-    class 128771 "BasePtr"
-      visibility package stereotype "typedef" base_type class_ref 128003 // Base
-      cpp_decl "${comment}typedef shared<${type}> ${name};
+    classdiagram 134530 "hl7fields"
+      draw_all_relations no hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+      size A4
+    end
+
+    class 134530 "BaseField"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
 "
       java_decl ""
       php_decl ""
       python_2_2 python_decl ""
-      idl_decl "${comment}typedef ${type} ${name};
-"
+      idl_decl ""
       explicit_switch_type ""
       
-      classrelation 129411 // <dependency>
-	relation 129155 -_->
+      classrelation 134530 // type (<directional aggregation>)
+	relation 134530 o-->
+	  a role_name "type" private
+	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 134530 // type (<directional aggregation>)
+	  b parent class_ref 128003 // BaseType
+      end
+
+      operation 134530 "value"
+	public explicit_return_type "string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 141186 "children"
+	public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      classrelation 141058 // <dependency>
+	relation 141058 -_->
 	  a default
 	    cpp default "#include in source"
-	    classrelation_ref 129411 // <dependency>
-	  b parent class_ref 128003 // Base
+	    classrelation_ref 141058 // <dependency>
+	  b parent class_ref 128387 // ContainerBase
+      end
+
+      classrelation 141442 // <dependency>
+	relation 141442 -_->
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 141442 // <dependency>
+	  b parent class_ref 128387 // ContainerBase
+      end
+    end
+
+    class 141058 "ComplexField"
+      visibility public 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 141314 // <generalisation>
+	relation 141314 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 141314 // <generalisation>
+	  b parent class_ref 134530 // BaseField
+      end
+
+      classrelation 141570 // _children (<directional composition>)
+	relation 141570 *-->
+	  a role_name "_children" private
+	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    classrelation_ref 141570 // _children (<directional composition>)
+	  b parent class_ref 128643 // Container
+	  association_type class_ref 128643 // Container
+      end
+    end
+
+    class 141186 "SimpleField"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 141186 // <generalisation>
+	relation 141186 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 141186 // <generalisation>
+	  b parent class_ref 134530 // BaseField
+      end
+
+      classrelation 148610 // <dependency>
+	relation 148354 -_->
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 148610 // <dependency>
+	  b parent class_ref 128515 // EmptyContainer
+      end
+    end
+
+    class 147714 "StringType"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 148738 // <generalisation>
+	relation 148482 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 148738 // <generalisation>
+	  b parent class_ref 128131 // SimpleType
+      end
+    end
+
+    class 147842 "IdType"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      classrelation 148866 // <generalisation>
+	relation 148610 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 148866 // <generalisation>
+	  b parent class_ref 128131 // SimpleType
+      end
+    end
+
+    classdiagram 141058 "TypeCreate"
+      draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+      size A4
+    end
+
+    class 147970 "TypeFactory"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      operation 147714 "getType"
+	public return_type class_ref 154498 // BasePtr
+	nparams 1
+	  param in name "name" explicit_type "string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      attribute 134530 "_types"
+	private type class_ref 128003 // BaseType
+	multiplicity "*"
+	stereotype "map"
+	cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      operation 154242 "loadType"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "fileName" explicit_type "string"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
       end
     end
   end

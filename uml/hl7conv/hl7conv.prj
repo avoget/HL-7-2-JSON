@@ -1,7 +1,7 @@
-format 75
+format 76
 "hl7conv"
-  revision 1
-  modified_by 3 "fav"
+  revision 2
+  modified_by 2 "fav"
 
 
   
@@ -14,7 +14,7 @@ format 75
   //sequence diagram settings
   show_full_operations_definition no write_horizontally yes class_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes show_stereotype_properties no show_class_context_mode no show_msg_context_mode no
   //collaboration diagram settings
-  show_full_operations_definition no show_hierarchical_rank no write_horizontally yes drawing_language uml package_name_in_tab no show_context no show_msg_context no draw_all_relations yes shadow yes show_stereotype_properties no
+  show_full_operations_definition no show_hierarchical_rank no write_horizontally yes class_drawing_mode natural drawing_language uml package_name_in_tab no show_context no show_msg_context no draw_all_relations yes shadow yes show_stereotype_properties no
   //object diagram settings
    write_horizontally yes package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes shadow yes show_stereotype_properties no
   //component diagram settings
