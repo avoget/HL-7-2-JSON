@@ -25,20 +25,27 @@ private:
 	std::list<string> _fielDescr;
 	string _name;
 };
+
+class Factory;
+
 struct Type {
-	Type(SPtr::shared<Description> descr);
+	string name();
 
 	int    size();
 	void   set(int index, string const & val);
 	string get(int index);
-
-	SPtr::shared<Description> descr();
+	void   load(string const &val);
 
 	void print(std::ostream & out);
 private:
+	friend class Factory;
+	Type(SPtr::shared<Description> descr);
+	
+	SPtr::shared<Description> descr();
 	SPtr::shared<Description> _descr;
 	std::vector<string> _values;
 };
+
 
 struct Factory{
 	void load(string const & typeName, string const & fileName);

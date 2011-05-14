@@ -40,8 +40,8 @@ relationcanvas 129794 relation_ref 155522 // <dependency>
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 129922 relation_ref 155650 // <directional aggregation>
-  decenter_end 505
-  from ref 128002 z 2001 stereotype "<<vector>>" xyz 215 274.5 3000 to ref 129538
+  decenter_end 504
+  from ref 128002 z 2001 stereotype "<<vector>>" xyz 215 274 3000 to ref 129538
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end

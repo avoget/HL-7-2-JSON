@@ -50,9 +50,14 @@ void Type::print(std::ostream & out){
 SPtr::shared<Description> Type::descr(){
 	return _descr; 
 }
+string Type::name(){
+	return _descr->name(); 
+}
 
 
-Factory::Factory(){}
+Factory::Factory(){
+	
+}
 void Factory::load(string const & typeName, string const & fileName){
 	std::fstream in(fileName.c_str());
 	if (in) {

@@ -92,7 +92,7 @@ relationcanvas 129539 relation_ref 128515 // <dependency>
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 129923 relation_ref 128643 // <generalisation>
-  decenter_end 565
+  decenter_end 564
   from ref 129667 z 2001 to ref 129155
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b

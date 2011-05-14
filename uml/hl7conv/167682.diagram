@@ -1,0 +1,13 @@
+format 76
+
+packagecanvas 128002 
+  package_ref 128003 // Types
+    xyzwh 95 93 2000 65 75
+end
+artifactcanvas 128130 artifact_ref 128002 // container
+  xyz 134 219 2000
+end
+artifactcanvas 128258 artifact_ref 128130 // type
+  xyz 144 424 2000
+end
+end
