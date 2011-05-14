@@ -1,25 +1,15 @@
-window_sizes 1682 1008 442 1234 865 64
+window_sizes 1920 1022 376 1538 879 64
 diagrams
-  classdiagram_ref 128003 // hl7types
-    773 658 100 4 77 0
-  classdiagram_ref 134530 // hl7fields
-    831 658 100 4 0 0
-  classdiagram_ref 141058 // TypeCreate
-    710 646 100 4 0 0
   active  classdiagram_ref 147586 // Controller
-    806 1026 100 4 0 0
+    689 613 100 4 0 0
+  classdiagram_ref 141058 // TypeCreate
+    809 703 100 4 0 0
+  classdiagram_ref 161154 // OutCreate
+    838 390 100 4 0 0
 end
 show_stereotypes
-selected classrelation_ref 155906 // <directional aggregation>
+selected sequencediagram_ref 160642 // ParseHL7
 open
-  class_ref 128003 // BaseType
-  class_ref 128131 // SimpleType
-  class_ref 128259 // ComplexType
-  class_ref 128387 // ContainerBase
-  class_ref 128515 // EmptyContainer
-  class_ref 128643 // Container
-  class_ref 147970 // TypeFactory
-  class_ref 161026 // SimpleTypeFactory
-  class_ref 161154 // HL7Converter
+  classview_ref 128003 // default
 end
 end

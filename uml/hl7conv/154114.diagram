@@ -1,0 +1,147 @@
+format 76
+
+classinstance 128002 class_ref 161154 // HL7Converter
+  name ""   xyz 6 16 2000 life_line_z 2000
+classinstance 129922 class_ref 174850 // FileTypeDirector
+  name ""   xyz 115 17 2000 life_line_z 2000
+classinstance 130690 class_ref 174594 // TypeBuilder
+  name ""   xyz 315 24 2000 life_line_z 2000
+classinstance 133122 class_ref 147970 // TypeStore
+  name ""   xyz 554 18 2000 life_line_z 2000
+classinstance 133762 class_ref 161026 // SimpleTypeFactory
+  name ""   xyz 662 19 2000 life_line_z 2000
+classinstance 134786 class_ref 128003 // BaseType
+  name ""   xyz 754 272 2000 life_line_z 2000
+classinstance 135170 class_ref 128003 // BaseType
+  name ""   xyz 398 177 2000 life_line_z 2000
+classinstance 135554 class_ref 128643 // Container
+  name ""   xyz 490 180 2000 life_line_z 2000
+durationcanvas 130050 classinstance_ref 128002 // :HL7Converter
+  xyzwh 47 81 2010 11 477
+end
+durationcanvas 130178 classinstance_ref 129922 // :FileTypeDirector
+  xyzwh 164 82 2010 11 476
+  overlappingdurationcanvas 130434
+    xyzwh 170 94 2020 11 441
+    overlappingdurationcanvas 131586
+      xyzwh 176 141 2030 11 388
+      overlappingdurationcanvas 132098
+	xyzwh 182 207 2040 11 67
+      end
+    end
+  end
+end
+durationcanvas 131842 classinstance_ref 130690 // :TypeBuilder
+  xyzwh 351 178 2010 11 25
+end
+durationcanvas 132354 classinstance_ref 130690 // :TypeBuilder
+  xyzwh 351 233 2010 11 217
+end
+durationcanvas 133506 classinstance_ref 133122 // :TypeStore
+  xyzwh 586 504 2010 11 25
+end
+durationcanvas 134274 classinstance_ref 133122 // :TypeStore
+  xyzwh 586 232 2010 11 33
+end
+durationcanvas 134530 classinstance_ref 133762 // :SimpleTypeFactory
+  xyzwh 720 272 2010 11 35
+end
+durationcanvas 134914 classinstance_ref 134786 // :BaseType
+  xyzwh 785 322 2010 11 40
+end
+durationcanvas 135298 classinstance_ref 135170 // :BaseType
+  xyzwh 429 380 2010 11 25
+end
+durationcanvas 135682 classinstance_ref 135554 // :Container
+  xyzwh 520 412 2010 11 34
+end
+durationcanvas 136194 classinstance_ref 130690 // :TypeBuilder
+  xyzwh 351 458 2010 11 25
+end
+msg 130306 synchronous
+  from durationcanvas_ref 130050
+  to durationcanvas_ref 130178
+  yz 82 2015 msg operation_ref 154242 // "createTypes() : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 69 65
+reflexivemsg 130562 synchronous
+  to durationcanvas_ref 130434
+  yz 94 2025 msg operation_ref 175618 // "openMainFile(in fileName : string) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 185 71
+reflexivemsg 131714 synchronous
+  to durationcanvas_ref 131586
+  yz 141 2035 msg operation_ref 175746 // "loadFile(in fileName : string) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 196 123
+msg 131970 synchronous
+  from durationcanvas_ref 131586
+  to durationcanvas_ref 131842
+  yz 179 2035 msg operation_ref 174338 // "create() : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 244 164
+reflexivemsg 132226 synchronous
+  to durationcanvas_ref 132098
+  yz 207 2045 unspecifiedmsg
+  stereotype "<<for each input string>>" xyz 192 190 3000
+  show_full_operations_definition default drawing_language default show_context_mode default
+msg 132482 synchronous
+  from durationcanvas_ref 132098
+  to durationcanvas_ref 132354
+  yz 233 2045 msg operation_ref 174594 // "addSubType(in description : StringList, in values : StringList) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 229 218
+msg 133634 synchronous
+  from durationcanvas_ref 131586
+  to durationcanvas_ref 133506
+  yz 518 2035 msg operation_ref 174210 // "add(in type : ContainerBase::BasePtr) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 238 506
+msg 134146 return
+  from durationcanvas_ref 130178
+  to durationcanvas_ref 130050
+  yz 547 2035 unspecifiedmsg
+  show_full_operations_definition default drawing_language default show_context_mode default
+msg 134402 synchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 134274
+  yz 244 2015 msg operation_ref 147714 // "get(in typeId : string) : ContainerBase::BasePtr"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 402 229
+msg 134658 synchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 134530
+  yz 273 2015 msg operation_ref 160898 // "getType(in name : string) : BaseType"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 461 258
+msg 135042 synchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 134914
+  yz 337 2015 msg operation_ref 176130 // "additional(in values : StringList) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 446 321
+msg 135426 synchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 135298
+  yz 383 2015 explicitmsg "children"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 372 368
+msg 135810 synchronous
+  from durationcanvas_ref 132354
+  to durationcanvas_ref 135682
+  yz 434 2015 msg operation_ref 128387 // "add(in type : BaseType) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 390 421
+msg 136322 synchronous
+  from durationcanvas_ref 131586
+  to durationcanvas_ref 136194
+  yz 458 3005 msg operation_ref 174466 // "get() : ContainerBase::BasePtr"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 255 443
+msg 136450 return
+  from durationcanvas_ref 134530
+  to durationcanvas_ref 132354
+  yz 296 2015 explicitmsg "new"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 529 281
+end

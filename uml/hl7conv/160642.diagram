@@ -1,0 +1,78 @@
+format 76
+
+classinstance 128002 class_ref 161154 // HL7Converter
+  name ""   xyz 27 8 2000 life_line_z 2000
+classinstance 128642 class_ref 134530 // BaseField
+  name ""   xyz 255 13 2000 life_line_z 2000
+classinstance 129538 class_ref 134530 // BaseField
+  name "children"   xyz 432 67 2000 life_line_z 2000
+classinstance 130178 class_ref 128003 // BaseType
+  name ""   xyz 586 66 2000 life_line_z 2000
+durationcanvas 128130 classinstance_ref 128002 // :HL7Converter
+  xyzwh 68 65 2010 11 124
+  overlappingdurationcanvas 128386
+    xyzwh 74 99 2020 11 52
+  end
+end
+durationcanvas 128770 classinstance_ref 128642 // :BaseField
+  xyzwh 286 126 2010 11 101
+  overlappingdurationcanvas 129026
+    xyzwh 292 134 2020 11 66
+  end
+end
+durationcanvas 129666 classinstance_ref 129538 // children:BaseField
+  xyzwh 486 174 2010 11 128
+  overlappingdurationcanvas 130690
+    xyzwh 492 243 2020 11 25
+  end
+end
+durationcanvas 130306 classinstance_ref 130178 // :BaseType
+  xyzwh 617 192 2010 11 32
+end
+reflexivemsg 128258 synchronous
+  to durationcanvas_ref 128130
+  yz 65 2015 msg operation_ref 176642 // "parse(in msg : string) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 93 47
+reflexivemsg 128514 synchronous
+  to durationcanvas_ref 128386
+  yz 99 2025 msg operation_ref 176898 // "SegSplit() : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 99 84
+msg 128898 synchronous
+  from durationcanvas_ref 128386
+  to durationcanvas_ref 128770
+  yz 126 2030 msg operation_ref 167426 // "parse(in val : string) : void"
+  stereotype "<<for each segment>>" xyz 112 138 3000
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 157 112
+reflexivemsg 129154 synchronous
+  to durationcanvas_ref 129026
+  yz 134 2035 msg operation_ref 177154 // "SubFieldSplit(in value : string) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 315 111
+msg 129794 synchronous
+  from durationcanvas_ref 129026
+  to durationcanvas_ref 129666
+  yz 174 2025 msg operation_ref 167426 // "parse(in val : string) : void"
+  stereotype "<<for each field value>>" xyz 324 189 3000
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 373 159
+msg 130434 synchronous
+  from durationcanvas_ref 129666
+  to durationcanvas_ref 130306
+  yz 193 2015 msg operation_ref 176258 // "validate(in value : string) : bool"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 531 178
+msg 130562 return
+  from durationcanvas_ref 130306
+  to durationcanvas_ref 129666
+  yz 213 2015 explicitmsg "true"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 545 198
+reflexivemsg 130818 synchronous
+  to durationcanvas_ref 130690
+  yz 243 2025 msg operation_ref 177282 // "set(in value : string) : void"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 498 228
+end
