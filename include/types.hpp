@@ -1,10 +1,16 @@
 #ifndef types_h
 #define types_h
 
+#include <iostream>
 #include <string>
 #include <set>
 #include <list>
+
 using std::string;
+
+#define CSTR_IDTYPE_NAME			"ID"
+#define CSTR_DATETYPE_NAME			"DT"
+#define CSTR_STRINGTYPE_NAME		"ST"
 
 #include "container.hpp"
 #include "composite.hpp"
@@ -12,19 +18,31 @@ using std::string;
 class BaseType : public Composite<BaseType> {
 	string _typeId, _name, _description;
 public:
+	typedef SPtr::shared<BaseType> TypePtr;
 	typedef std::list<string> StringList;
 	BaseType(string const & name) : _name(name){}
 	virtual ~BaseType(){}
 
-	string & typeId(){ return _typeId; }
-	string & name(){ return _name; }
-	string & description(){	return _description; }
-	string const & typeId() const { return _typeId; }
-	string const & name() const { return _name; }
-	string const & description() const {	return _description; }
+	string typeId() const { return _typeId; }
+	string name() const { return _name; }
+	string description() const { return _description; }
+	void typeId(string const & typeId){
+		_typeId = typeId;
+	}
+	void name(string const & name){
+		_name = name;
+	}
+	void description(string const & description){
+		_description = description;
+	}
 
 	virtual void additional(const StringList & values){}
 	virtual bool validate(string const & value) const = 0;
+
+	// !!! test
+	void dump(){
+		std::cout << "BaseType::dump() _typeId=" << _typeId << " ,_name=" << _name << ", _description=" << _description << "\n";
+	}
 };
 
 class SimpleType : public BaseType {
@@ -37,24 +55,27 @@ public:
 };
 
 class IdType : public SimpleType {
-	std::set<string> _table;
+	std::set<string> _set;
 public:
-	IdType(string const & name) : SimpleType(name) {}
-	void additional(const StringList & values){}
+	IdType() : SimpleType(CSTR_IDTYPE_NAME) {}
+	void additional(const StringList & values){
+		//!!! insert into _set
+//		_set = values;
+	}
 	bool validate(string const & value) const {
-		return _table.find(value) != _table.end();
+		return _set.find(value) != _set.end();
 	}
 };
 class StringType : public SimpleType {
 public:
-	StringType(string const & name) : SimpleType(name) {}
+	StringType() : SimpleType(CSTR_STRINGTYPE_NAME) {}
 	bool validate(string const & value) const {
 		return true;
 	}
 };
 class DateType : public SimpleType {
 public:
-	DateType(string const & name) : SimpleType(name) {}
+	DateType() : SimpleType(CSTR_DATETYPE_NAME) {}
 	bool validate(string const & value) const {
 		//!!!
 		return false;

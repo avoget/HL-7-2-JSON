@@ -19,6 +19,9 @@ public:
 	virtual bool isEmpty(){
 		return true;
 	}
+	virtual bool container(){
+		return false;
+	}
 };
 
 template <typename T> class Container : public ContainerBase<T> {
@@ -45,6 +48,9 @@ public:
 	}
 	bool isEmpty(){
 		return _list.size() == 0;
+	}
+	bool container(){
+		return true;
 	}
 };
 template <typename T> class EmptyContainer : public ContainerBase<T> {

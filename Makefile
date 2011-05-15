@@ -8,7 +8,7 @@ BOOST = /home/fav/libs/boost/1_44
 CC = g++
 CFLAGS = -s -O2 -I$(BOOST) -I$(INCLUDE)
 
-all: $(BIN)/test1 $(BIN)/test2
+all: $(BIN)/test1 $(BIN)/test2 $(BIN)/test10
 
 objs = $(OBJ)/conv.o $(OBJ)/test1.o $(OBJ)/hl7types.o $(OBJ)/test2.o
 pheader = $(INCLUDE)/spirit.hpp.gch
@@ -25,7 +25,7 @@ $(OBJ)/hl7types.o: $(SRC)/hl7types.cpp $(INCLUDE)/hl7types.hpp
 $(OBJ)/test1.o: $(TEST)/test1.cpp
 	$(CC) $(CFLAGS) -c -o $(OBJ)/test1.o $(TEST)/test1.cpp
 	
-$(OBJ)/test2.o: $(TEST)/test2.cpp
+$(OBJ)/test2.o: $(TEST)/test2.cpp $(INCLUDE)/hl7types.hpp
 	$(CC) $(CFLAGS) -c -o $(OBJ)/test2.o $(TEST)/test2.cpp
 	
 $(BIN)/test1: $(OBJ)/conv.o $(OBJ)/test1.o
@@ -33,3 +33,12 @@ $(BIN)/test1: $(OBJ)/conv.o $(OBJ)/test1.o
 	
 $(BIN)/test2: $(OBJ)/hl7types.o $(OBJ)/test2.o
 	$(CC) $(CFLAGS) -o $(BIN)/test2 $(OBJ)/test2.o $(OBJ)/hl7types.o
+
+$(OBJ)/test10.o: $(TEST)/test10.cpp $(INCLUDE)/types.hpp $(INCLUDE)/fields.hpp
+	$(CC) $(CFLAGS) -c -o $(OBJ)/test10.o $(TEST)/test10.cpp
+	
+$(OBJ)/parser.o: $(SRC)/parser.cpp $(INCLUDE)/parser.hpp
+	$(CC) $(CFLAGS) -c -o $(OBJ)/parser.o $(SRC)/parser.cpp
+
+$(BIN)/test10: $(OBJ)/test10.o $(OBJ)/parser.o  
+	$(CC) $(CFLAGS) -o $(BIN)/test10 $(OBJ)/test10.o $(OBJ)/parser.o
