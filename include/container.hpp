@@ -2,6 +2,8 @@
 #define container_h
 
 #include <list>
+#include <iostream>
+
 #include "sptr.hpp"
 
 template <typename T> class ContainerBase{
@@ -31,7 +33,7 @@ template <typename T> class Container : public ContainerBase<T> {
 
 public:
 	typedef SPtr::shared<T> BasePtr;
-	void add(const BasePtr & type){
+	void add(BasePtr const & type){
 		_list.push_back(type);
 	}
 	void first(){

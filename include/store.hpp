@@ -2,24 +2,26 @@
 #define TYPES_STORE_H
 
 #include <map>
-#include "types.hpp"
+#include <string>
 
-class TypeStore {
-	typedef std::map<string, BaseType::TypePtr> tStore;
+template <typename TypePtr> class Store {
+private:
+	typedef std::map< std::string, TypePtr > tStore;
 	tStore _types;
 public:
-	BaseType::TypePtr get(string const &typeId){
-		tStore::const_iterator it = _types.find(typeId);
-		BaseType::TypePtr ret;
-		if (it != _types.end()){
+	TypePtr get( std::string const & id ) const {
+		typename tStore::const_iterator it = _types.find( id );
+		TypePtr ret;
+		if( it != _types.end() ){
 			ret = it->second;
 		}
 		return ret;
 	}
-	void add(BaseType::TypePtr const & type){
-//std::cout << "TypeStore::add()\n";
-//type->dump();
-		_types[type->typeId()] = type;
+	void add(TypePtr const & val){
+		TypePtr t = get(val->id());
+		if( !t ){
+			_types[ val->id() ] = val;
+		}
 	}
 };
 

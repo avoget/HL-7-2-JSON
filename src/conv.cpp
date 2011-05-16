@@ -43,25 +43,25 @@ namespace HL7{
 		qi::rule<Iterator, ADTmsg() > adt;
 	};
 
-void Converter::Input(std::string const & in) throw() {
-	input = in;
-}
-ADTmsg Converter::Convert() throw(const char*) {
-	string::const_iterator begin = input.begin();
-	string::const_iterator end = input.end();
-	ADTmsg res;
-	typedef string::const_iterator iterator_type;
-	typedef ADT_parser<iterator_type> ADT_parser;
-	ADT_parser parser;
-
-	bool r = parse(begin, end, parser, res);
-	if (!r) {
-		throw "Parse error";
+	void Converter::Input(std::string const & in) throw() {
+		input = in;
 	}
-	return res;
-}
+	ADTmsg Converter::Convert() throw(const char*) {
+		string::const_iterator begin = input.begin();
+		string::const_iterator end = input.end();
+		ADTmsg res;
+		typedef string::const_iterator iterator_type;
+		typedef ADT_parser<iterator_type> ADT_parser;
+		ADT_parser parser;
 
-}
+		bool r = parse(begin, end, parser, res);
+		if (!r) {
+			throw "Parse error";
+		}
+		return res;
+	}
+	
+}		//namespace HL7
 
 
 //

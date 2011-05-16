@@ -1,13 +1,24 @@
 format 76
 
-packagecanvas 128002 
-  package_ref 128003 // Types
-    xyzwh 95 93 2000 65 75
-end
 artifactcanvas 128130 artifact_ref 128002 // container
-  xyz 134 219 2000
+  xyz 45 55 2000
 end
 artifactcanvas 128258 artifact_ref 128130 // type
-  xyz 144 424 2000
+  xyz 264 54 2000
+end
+artifactcanvas 128386 artifact_ref 134658 // field
+  xyz 49 175 2000
+end
+artifactcanvas 128514 artifact_ref 134786 // out
+  xyz 268 168 2000
+end
+artifactcanvas 128642 artifact_ref 134914 // builder
+  xyz 49 287 2000
+end
+artifactcanvas 128770 artifact_ref 135042 // factory
+  xyz 274 286 2000
+end
+artifactcanvas 128898 artifact_ref 135170 // store
+  xyz 48 402 2000
 end
 end

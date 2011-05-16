@@ -1,6 +1,6 @@
 format 76
 "Types" // Types
-  revision 11
+  revision 12
   modified_by 2 "fav"
   // class settings
   //class diagram settings
@@ -1615,6 +1615,131 @@ ${namespace_end}"
 	class_ref 128259 // ComplexType
 	class_ref 168066 // DateType
 	class_ref 175874 // Composite
+      end
+    end
+
+    artifact 134658 "field"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+	class_ref 134530 // BaseField
+	class_ref 141058 // ComplexField
+	class_ref 141186 // SimpleField
+      end
+    end
+
+    artifact 134786 "out"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+	class_ref 175362 // BaseOut
+	class_ref 175618 // ComplexOut
+	class_ref 175490 // SimpleOut
+      end
+    end
+
+    artifact 134914 "builder"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+	class_ref 176002 // BuildOutDirector
+	class_ref 174722 // BuildTypeDirector
+	class_ref 176130 // FileOutDirector
+	class_ref 174850 // FileTypeDirector
+	class_ref 176258 // OutBuilder
+	class_ref 174594 // TypeBuilder
+      end
+    end
+
+    artifact 135042 "factory"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+	class_ref 182786 // OutFactory
+	class_ref 161026 // SimpleTypeFactory
+      end
+    end
+
+    artifact 135170 "store"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+	class_ref 147970 // TypeStore
       end
     end
   end
